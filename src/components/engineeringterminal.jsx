@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import './engstyles.css';
 import "./header.css";
 
@@ -13,8 +13,9 @@ function Terminal() {
         useEffect(() => {
             const fetchData = async () => {
               try {
-                const response = await axios.get('https://missionplanner-api.onrender.com/tdata-data');
-                setData(response.data);
+                const response = await fetch('https://missionplanner-api.onrender.com/tdata-data');
+                const data = await response.json();
+                setData(data);
                 setLoading(false);
                 setTimeout(fetchData, 5);
               }
@@ -45,8 +46,8 @@ function Terminal() {
         useEffect(() => {
           const fetchMessages = async () => {
             try {
-              const response = await axios.get('https://missionplanner-api.onrender.com/messages-data');
-              const data = response.data; 
+              const response = await fetch('https://missionplanner-api.onrender.com/messages-data');
+              const data = await response.json(); 
               setMessages(data.m_StringValue);
               setStatus('Messages fetched successfully');
             //   console.log("messages are",messages);
